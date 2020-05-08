@@ -49,4 +49,4 @@ MonoBehaviour:
     type: 3}
   boidsContainer: {fileID: 2888123685478711429, guid: b386e646240e5014096c15d4616ba074,
     type: 3}
-  number: 150
+  number: 50

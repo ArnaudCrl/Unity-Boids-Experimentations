@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f46dc39f9c9d7d4797c9698e9f51c0e, type: 3}
   m_Name: Boid Settings
   m_EditorClassIdentifier: 
-  maxSpeed: 0
-  maxForce: 0
-  CohesionRadius: 0
-  SeparationRadius: 0
-  viewAngle: 0
+  minSpeed: 2
+  maxSpeed: 5
+  maxForce: 3
+  CohesionRadius: 2.5
+  SeparationRadius: 1
+  viewAngle: 90

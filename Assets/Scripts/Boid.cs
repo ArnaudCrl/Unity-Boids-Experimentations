@@ -9,38 +9,34 @@ using Random = UnityEngine.Random;
 public class Boid : MonoBehaviour
 {
     public BoidSettings settings;
+
     [HideInInspector] public Vector3 position;
     [HideInInspector] public Vector3 velocity;
 
-    [HideInInspector] public Vector3 flockCenter;
-    [HideInInspector] public Vector3 flockMovingDirection;
-    [HideInInspector] public Vector3 flockSeparationDirection;
+    [HideInInspector] public Vector3 flockCenter = Vector3.zero;
+    [HideInInspector] public Vector3 flockMovingDirection = Vector3.zero;
+    [HideInInspector] public Vector3 flockSeparationDirection = Vector3.zero;
     [HideInInspector] public int numberOfNeighbours = 0;
 
+    private Vector3 cohesionSteer;
+    private Vector3 alignmentSteer;
+    private Vector3 separationSteer;
 
-    public List<Collider> GetNeighbourBoids(float radius, float viewAngle)
-    {
-        List<Collider> boids = Physics.OverlapSphere(transform.position, radius).ToList();
-        Collider selfCollider = GetComponent<Collider>();
+    private Vector3 acceleration;
 
-        if (boids.Contains(selfCollider))
-        {
-            boids.Remove(selfCollider);
-        }
-        boids.RemoveAll(collider => Vector3.Angle(transform.forward, collider.gameObject.transform.position - this.transform.position) > viewAngle);
-        boids.RemoveAll(collider => collider.gameObject.layer != this.gameObject.layer);
-        return boids;
-    }
-
-    private void UpdateVelocity()
+    private void ComputeAcceleration()
     {
         if (numberOfNeighbours > 0)
         {
-            Vector3 cohesionSteer = SteerTowards((flockCenter / numberOfNeighbours) - this.position);
-            Vector3 alignmentSteer = SteerTowards(flockMovingDirection);
-            Vector3 separationSteer = SteerTowards(flockSeparationDirection);
+            acceleration = Vector3.zero;
 
-            this.velocity += (cohesionSteer + alignmentSteer + separationSteer); // * Time.deltaTime;
+            cohesionSteer = SteerTowards((flockCenter / numberOfNeighbours) - this.position);
+            alignmentSteer = SteerTowards(flockMovingDirection);
+            separationSteer = SteerTowards(flockSeparationDirection);
+
+            acceleration += cohesionSteer;
+            acceleration += alignmentSteer;
+            acceleration += separationSteer;
         }
     }
 
@@ -52,22 +48,24 @@ public class Boid : MonoBehaviour
         return direction;
     }
 
-
-
     void Start()
     {
         this.position = transform.position;
         this.velocity = transform.forward.normalized * settings.maxSpeed;
     }
 
-
+    private float speed;
 
     void Update()
     {
-        this.position = transform.position;
+        ComputeAcceleration();
 
-        UpdateVelocity();
-        this.transform.position += Vector3.ClampMagnitude(this.velocity, settings.maxSpeed) * Time.deltaTime;
+        velocity += acceleration * Time.deltaTime;
+        speed = Mathf.Clamp(velocity.magnitude, settings.minSpeed, settings.maxSpeed);
+        velocity = velocity.normalized * speed;
+
+        this.transform.position += velocity * Time.deltaTime;
+        this.position = this.transform.position;
         this.transform.rotation = Quaternion.LookRotation(velocity);
     }
 }
