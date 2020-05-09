@@ -24,7 +24,7 @@ public class BoidHunt : MonoBehaviour
         Vector3 steer = this.targetPos - this.transform.position;
         steer *= boid.settings.maxSpeed;
         steer -= boid.velocity;
-        steer = Vector3.ClampMagnitude(steer, boid.settings.maxForce);
+        steer = Vector3.ClampMagnitude(steer, boid.settings.huntMaxForce);
 
         boid.velocity += steer;
 

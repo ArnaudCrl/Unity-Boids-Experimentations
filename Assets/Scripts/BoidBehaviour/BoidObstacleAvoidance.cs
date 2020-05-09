@@ -35,7 +35,7 @@ public class BoidObstacleAvoidance : MonoBehaviour
             steer = this.transform.TransformDirection(rays[index]).normalized;
             steer *= boid.settings.maxSpeed;
             steer -= boid.velocity;
-            steer = Vector3.ClampMagnitude(steer, boid.settings.maxForce * 20);
+            steer = Vector3.ClampMagnitude(steer, boid.settings.obstacleAvoidancenMaxForce);
         }
 
 

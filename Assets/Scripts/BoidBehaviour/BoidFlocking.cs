@@ -13,36 +13,37 @@ public class BoidFlocking : MonoBehaviour
         self = GetComponent<Boid>();
     }
 
-    public List<Collider> GetNeighbourBoids(float radius, float viewAngle)
+    public void GetNeighbourBoids(float radius, float viewAngle)
     {
-        List<Collider> boids = Physics.OverlapSphere(transform.position, radius).ToList();
+        neighbours = new List<Collider>();
+        neighbours = Physics.OverlapSphere(transform.position, radius).ToList();
         Collider selfCollider = GetComponent<Collider>();
 
-        if (boids.Contains(selfCollider))
+        if (neighbours.Contains(selfCollider))
         {
-            boids.Remove(selfCollider);
+            neighbours.Remove(selfCollider);
         }
-        boids.RemoveAll(collider => Vector3.Angle(transform.forward, collider.gameObject.transform.position - this.transform.position) > viewAngle);
-        boids.RemoveAll(collider => collider.gameObject.layer != this.gameObject.layer);
-        return boids;
+        neighbours.RemoveAll(collider => Vector3.Angle(transform.forward, collider.gameObject.transform.position - this.transform.position) > viewAngle);
+        neighbours.RemoveAll(collider => collider.gameObject.layer != this.gameObject.layer);
     }
 
     void Update()
     {
         self.numberOfNeighbours = 0;
 
-        neighbours = GetNeighbourBoids(self.settings.CohesionRadius, self.settings.viewAngle);
+        GetNeighbourBoids(self.settings.CohesionRadius, self.settings.viewAngle);
         foreach (Collider b in neighbours)
         {
-            self.flockMovingDirection += b.gameObject.GetComponent<Boid>().velocity;
-            self.flockCenter += b.gameObject.GetComponent<Boid>().position;
+            self.flockMovingDirection += b.gameObject.transform.forward;
+            self.flockCenter += b.gameObject.transform.position;
             self.numberOfNeighbours++;
         }
 
-        neighbours = GetNeighbourBoids(self.settings.SeparationRadius, self.settings.viewAngle);
+        GetNeighbourBoids(self.settings.SeparationRadius, self.settings.viewAngle);
         foreach (Collider b in neighbours)
         {
-            self.flockSeparationDirection -= (b.gameObject.GetComponent<Boid>().position - self.position) / Vector3.Distance(b.gameObject.GetComponent<Boid>().position, self.position);
+            self.flockSeparationDirection -= (b.gameObject.transform.position - this.transform.position)
+                / (Vector3.Distance(b.gameObject.transform.position, this.transform.position) * Vector3.Distance(b.gameObject.transform.position, this.transform.position));
         }
     }
 }
