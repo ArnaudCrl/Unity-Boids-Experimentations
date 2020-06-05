@@ -4,7 +4,6 @@ using System.Linq;
 using UnityEngine;
 
 
-[RequireComponent(typeof(Boid))]
 public class BoidObstacleAvoidance : MonoBehaviour
 {
     private Boid boid;

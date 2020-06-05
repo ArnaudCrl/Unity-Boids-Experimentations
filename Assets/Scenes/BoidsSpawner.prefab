@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8412802303613049709}
   - component: {fileID: 8412802303613049708}
+  - component: {fileID: 2758517661705024871}
   m_Layer: 0
   m_Name: BoidsSpawner
   m_TagString: Untagged
@@ -43,10 +44,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdbda6b13227166498534424efe83587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boidPrefab: {fileID: 4941235731794056913, guid: b119836444a6d7c43ba80937278beb75,
+  boidPrefab: {fileID: 6055084986244782124, guid: 026fc7c254a6f61409c0b53f5628b88c,
     type: 3}
   boidPrey: {fileID: 7920235140364662265, guid: 93cf3b3209c64cf49b030189813b3be4,
     type: 3}
   boidsContainer: {fileID: 2888123685478711429, guid: b386e646240e5014096c15d4616ba074,
     type: 3}
   number: 50
+--- !u!114 &2758517661705024871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8412802303613049715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff889a26406eb0242a21e596320cfb37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings: {fileID: 11400000, guid: 8463169277d3e534893356be919a6588, type: 2}
+  compute: {fileID: 7200000, guid: 3bd9b92e56ed32543a6fed6299e4b194, type: 3}
+  boids: []

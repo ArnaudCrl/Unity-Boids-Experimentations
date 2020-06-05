@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
-public class Boid : MonoBehaviour
+public class BoidGPU : MonoBehaviour
 {
     public BoidSettings settings;
 
@@ -24,39 +24,16 @@ public class Boid : MonoBehaviour
     private Vector3 separationSteer;
 
     private Vector3 acceleration;
-    private Renderer renderer;
 
 
     void Start()
     {
         this.position = transform.position;
         this.velocity = transform.forward.normalized * settings.maxSpeed;
-        renderer = GetComponent<Renderer>();
     }
 
-    void Update()
-    {
-        //renderer.material.color = Color.Lerp(Color.blue, Color.red, numberOfNeighbours / 5);
-        ComputeAcceleration();
 
-        this.velocity += this.acceleration;
-        if (this.velocity.magnitude < settings.maxSpeed * 0.7)
-        {
-            this.velocity = this.velocity.normalized;
-            this.velocity *= (settings.maxSpeed * 0.7f);
-        }
-
-        this.transform.position += Vector3.ClampMagnitude(this.velocity, settings.maxSpeed) * Time.deltaTime;
-        this.position = this.transform.position;
-        this.transform.rotation = Quaternion.LookRotation(velocity);
-
-        if (transform.position.magnitude > 100)
-        {
-            transform.position = Vector3.zero;
-        }
-    }
-
-    private void ComputeAcceleration()
+    public void ComputeAcceleration()
     {
         this.acceleration = Vector3.zero;
         if (numberOfNeighbours > 0)
@@ -71,6 +48,29 @@ public class Boid : MonoBehaviour
         }
     }
 
+
+    void Update()
+    {
+        ComputeAcceleration();
+
+        this.velocity += this.acceleration;
+        if (this.velocity.magnitude < settings.maxSpeed * 0.7)
+        {
+            this.velocity = this.velocity.normalized;
+            this.velocity *= (settings.maxSpeed * 0.7f);
+        }
+
+        this.transform.position += Vector3.ClampMagnitude(this.velocity, settings.maxSpeed) * Time.deltaTime;
+        this.position = this.transform.position;
+        this.transform.rotation = Quaternion.LookRotation(velocity);
+
+        if (transform.position.magnitude > settings.despawnRadius)
+        {
+            transform.position = Vector3.zero;
+        }
+    }
+
+
     private Vector3 SteerTowards(Vector3 direction, float maxForce)
     {
         direction = direction.normalized * settings.maxSpeed;
@@ -78,4 +78,5 @@ public class Boid : MonoBehaviour
         direction = Vector3.ClampMagnitude(direction, maxForce);
         return direction;
     }
+
 }

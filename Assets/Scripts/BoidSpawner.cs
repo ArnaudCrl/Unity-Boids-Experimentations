@@ -10,11 +10,9 @@ public class BoidSpawner : MonoBehaviour
     public int number;
     private Transform boundingBox;
 
-    void Start()
+    void Awake()
     {
         boundingBox = boidsContainer.transform;
-        //Instantiate(boidsContainer);
-
 
         Vector3 randomPos = new Vector3(Random.Range(boundingBox.position.x - boundingBox.localScale.x / 2, boundingBox.position.x + boundingBox.localScale.x / 2),
                                                   Random.Range(boundingBox.position.y - boundingBox.localScale.y / 2, boundingBox.position.y + boundingBox.localScale.y / 2),
