@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f46dc39f9c9d7d4797c9698e9f51c0e, type: 3}
   m_Name: Boid Settings
   m_EditorClassIdentifier: 
-  maxSpeed: 15
-  CohesionRadius: 7
-  SeparationRadius: 2
-  viewAngle: 120
-  cohesionMaxForce: 0.3
-  alignmentMaxForce: 0.3
-  separationMaxForce: 1
-  obstacleAvoidancenMaxForce: 2
+  maxSpeed: 30
+  CohesionRadius: 6
+  SeparationRadius: 3
+  ObstacleAvoidanceRadius: 20
+  viewAngle: 90
+  cohesionMaxForce: 1
+  alignmentMaxForce: 3
+  separationMaxForce: 5
+  obstacleAvoidancenMaxForce: 20
   huntMaxForce: 1

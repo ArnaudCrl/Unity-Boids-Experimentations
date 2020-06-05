@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boidPrefab: {fileID: 4941235731794056913, guid: b119836444a6d7c43ba80937278beb75,
     type: 3}
-  boidPrey: {fileID: 1539571552400613859, guid: d84393d75b8109b4b9deec24e869c866,
+  boidPrey: {fileID: 7920235140364662265, guid: 93cf3b3209c64cf49b030189813b3be4,
     type: 3}
   boidsContainer: {fileID: 2888123685478711429, guid: b386e646240e5014096c15d4616ba074,
     type: 3}

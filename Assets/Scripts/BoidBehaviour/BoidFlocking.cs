@@ -13,7 +13,7 @@ public class BoidFlocking : MonoBehaviour
         self = GetComponent<Boid>();
     }
 
-    public void GetNeighbourBoids(float radius, float viewAngle)
+    private void GetNeighbourBoids(float radius, float viewAngle)
     {
         neighbours = new List<Collider>();
         neighbours = Physics.OverlapSphere(transform.position, radius).ToList();
@@ -29,7 +29,7 @@ public class BoidFlocking : MonoBehaviour
 
     void Update()
     {
-        self.numberOfNeighbours = 0;
+        ResetValues();
 
         GetNeighbourBoids(self.settings.CohesionRadius, self.settings.viewAngle);
         foreach (Collider b in neighbours)
@@ -45,5 +45,13 @@ public class BoidFlocking : MonoBehaviour
             self.flockSeparationDirection -= (b.gameObject.transform.position - this.transform.position)
                 / (Vector3.Distance(b.gameObject.transform.position, this.transform.position) * Vector3.Distance(b.gameObject.transform.position, this.transform.position));
         }
+    }
+
+    private void ResetValues()
+    {
+        self.numberOfNeighbours = 0;
+        self.flockCenter = Vector3.zero;
+        self.flockMovingDirection = Vector3.zero;
+        self.flockSeparationDirection = Vector3.zero;
     }
 }

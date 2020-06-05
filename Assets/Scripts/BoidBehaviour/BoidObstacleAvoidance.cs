@@ -7,11 +7,8 @@ using UnityEngine;
 [RequireComponent(typeof(Boid))]
 public class BoidObstacleAvoidance : MonoBehaviour
 {
-    public float radius;
-
-    private Vector3[] rays;
     private Boid boid;
-    LayerMask obstacleMask;
+    private LayerMask obstacleMask;
 
     void Start()
     {
@@ -23,20 +20,24 @@ public class BoidObstacleAvoidance : MonoBehaviour
     {
         Vector3 steer = Vector3.zero;
 
-        rays = PointsOnSphere.directions;
         int index = 0;
-        while (Physics.Raycast(this.transform.position, this.transform.TransformDirection(rays[index]), radius, obstacleMask))
+        while (Physics.Raycast(this.transform.position, this.transform.TransformDirection(PointsOnSphere.directions[index]), boid.settings.ObstacleAvoidanceRadius, obstacleMask))
         {
             index++;
+            if (index == PointsOnSphere.directions.Length - 1)
+            {
+                break;
+            }
         }
 
         if (index != 0)
         {
-            steer = this.transform.TransformDirection(rays[index]).normalized;
+            steer = this.transform.TransformDirection(PointsOnSphere.directions[index]).normalized;
             steer *= boid.settings.maxSpeed;
             steer -= boid.velocity;
             steer = Vector3.ClampMagnitude(steer, boid.settings.obstacleAvoidancenMaxForce);
         }
+
 
 
         boid.velocity += steer;
@@ -46,12 +47,12 @@ public class BoidObstacleAvoidance : MonoBehaviour
     {
         Gizmos.color = Color.red;
         int index = 0;
-        while (Physics.Raycast(this.transform.position, this.transform.TransformDirection(rays[index]), radius, obstacleMask))
+        while (Physics.Raycast(this.transform.position, this.transform.TransformDirection(PointsOnSphere.directions[index]), boid.settings.ObstacleAvoidanceRadius, obstacleMask))
         {
-            Gizmos.DrawRay(this.transform.position, this.transform.TransformDirection(rays[index]).normalized * radius);
+            Gizmos.DrawRay(this.transform.position, this.transform.TransformDirection(PointsOnSphere.directions[index]).normalized * boid.settings.ObstacleAvoidanceRadius);
             index++;
         }
         Gizmos.color = Color.green;
-        Gizmos.DrawRay(this.transform.position, this.transform.TransformDirection(rays[index]).normalized * radius);
+        Gizmos.DrawRay(this.transform.position, this.transform.TransformDirection(PointsOnSphere.directions[index]).normalized * boid.settings.ObstacleAvoidanceRadius);
     }
 }

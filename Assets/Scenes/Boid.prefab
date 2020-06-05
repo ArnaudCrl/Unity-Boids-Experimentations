@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 4941235731794056918}
   - component: {fileID: 4941235731794056917}
   - component: {fileID: 4941235731794056916}
-  - component: {fileID: -4754478648712987730}
   - component: {fileID: 4941235731794056914}
   - component: {fileID: -7757148862793371041}
   - component: {fileID: -1451561040693565692}
   - component: {fileID: -959776356556092441}
+  - component: {fileID: -8385902805928164885}
   m_Layer: 9
   m_Name: Boid
   m_TagString: Boid
@@ -84,20 +84,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &-4754478648712987730
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4941235731794056913}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.54179406
-  m_Height: 1.0278513
-  m_Direction: 2
-  m_Center: {x: -0.011975646, y: -0.0007483959, z: -0.010825038}
 --- !u!114 &4941235731794056914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,7 +115,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ea1293bb11bac84981eca887f08ab57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 15
 --- !u!114 &-1451561040693565692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,12 +122,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4941235731794056913}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f95ef3da3f4b0940b7260f161f306d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  target: {fileID: 7920235140364662265, guid: 93cf3b3209c64cf49b030189813b3be4, type: 3}
 --- !u!114 &-959776356556092441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,3 +140,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c4f48868e43934e964d356edbea6b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &-8385902805928164885
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4941235731794056913}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

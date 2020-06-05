@@ -9,6 +9,8 @@ public class BoidSettings : ScriptableObject
 
     public float CohesionRadius = 6.0f;
     public float SeparationRadius = 3.0f;
+    public float ObstacleAvoidanceRadius = 10.0f;
+
     [Range(0, 180)] public float viewAngle = 90.0f;
 
     public float cohesionMaxForce = 0.3f;

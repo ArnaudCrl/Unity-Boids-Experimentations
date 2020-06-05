@@ -24,16 +24,19 @@ public class Boid : MonoBehaviour
     private Vector3 separationSteer;
 
     private Vector3 acceleration;
+    private Renderer renderer;
 
 
     void Start()
     {
         this.position = transform.position;
         this.velocity = transform.forward.normalized * settings.maxSpeed;
+        renderer = GetComponent<Renderer>();
     }
 
     void Update()
     {
+        //renderer.material.color = Color.Lerp(Color.blue, Color.red, numberOfNeighbours / 5);
         ComputeAcceleration();
 
         this.velocity += this.acceleration;
@@ -42,22 +45,26 @@ public class Boid : MonoBehaviour
             this.velocity = this.velocity.normalized;
             this.velocity *= (settings.maxSpeed * 0.7f);
         }
+
         this.transform.position += Vector3.ClampMagnitude(this.velocity, settings.maxSpeed) * Time.deltaTime;
         this.position = this.transform.position;
         this.transform.rotation = Quaternion.LookRotation(velocity);
 
-        ResetValues();
+        if (transform.position.magnitude > 100)
+        {
+            transform.position = Vector3.zero;
+        }
     }
 
     private void ComputeAcceleration()
     {
+        this.acceleration = Vector3.zero;
         if (numberOfNeighbours > 0)
         {
-            //Debug.DrawRay(transform.position, flockSeparationDirection, Color.red);
             cohesionSteer = SteerTowards((flockCenter / numberOfNeighbours) - this.transform.position, settings.cohesionMaxForce);
             alignmentSteer = SteerTowards(flockMovingDirection, settings.alignmentMaxForce);
             separationSteer = SteerTowards(flockSeparationDirection, settings.separationMaxForce);
-            //Debug.DrawRay(transform.position, separationSteer, Color.yellow);
+
             acceleration += cohesionSteer;
             acceleration += alignmentSteer;
             acceleration += separationSteer;
@@ -70,13 +77,5 @@ public class Boid : MonoBehaviour
         direction -= velocity;
         direction = Vector3.ClampMagnitude(direction, maxForce);
         return direction;
-    }
-
-    private void ResetValues()
-    {
-        this.flockCenter = Vector3.zero;
-        this.flockMovingDirection = Vector3.zero;
-        this.flockSeparationDirection = Vector3.zero;
-        this.acceleration = Vector3.zero;
     }
 }

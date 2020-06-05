@@ -14,8 +14,7 @@ public class BoidHunt : MonoBehaviour
     void Start()
     {
         boid = GetComponent<Boid>();
-        GameObject temp = GameObject.FindGameObjectWithTag("Prey");
-        target = temp;
+        target = GameObject.FindGameObjectWithTag("Prey");
     }
 
     void Update()
