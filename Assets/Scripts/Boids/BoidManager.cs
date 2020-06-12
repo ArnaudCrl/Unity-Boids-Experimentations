@@ -8,6 +8,7 @@ public class BoidManager : MonoBehaviour
     public ComputeShader compute;
     public BoidGPU[] boids;
     const int threadGroupSize = 1024;
+    public float fps;
     void Start()
     {
         boids = FindObjectsOfType<BoidGPU>();
@@ -15,7 +16,9 @@ public class BoidManager : MonoBehaviour
 
     void Update()
     {
-        if (boids != null && boids.Length > 0)
+        fps = 1f / Time.deltaTime;
+
+        if (boids.Length > 0)
         {
 
             int numBoids = boids.Length;

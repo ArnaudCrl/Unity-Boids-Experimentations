@@ -3,23 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[RequireComponent(typeof(Boid))]
+[RequireComponent(typeof(BoidGPU))]
 public class BoidHunt : MonoBehaviour
 {
     public GameObject target;
 
     private Vector3 targetPos;
-    private Boid boid;
+    private BoidGPU boid;
 
     void Start()
     {
-        boid = GetComponent<Boid>();
-        target = GameObject.FindGameObjectWithTag("Prey");
+        target = GameObject.FindWithTag("Prey");
+        boid = GetComponent<BoidGPU>();
     }
 
     void Update()
     {
-        targetPos = target.gameObject.transform.position;
+        targetPos = target.transform.position;
         Vector3 steer = this.targetPos - this.transform.position;
         steer *= boid.settings.maxSpeed;
         steer -= boid.velocity;

@@ -14,9 +14,9 @@ public class BoidGPU : MonoBehaviour
     [HideInInspector] public Vector3 position;
     [HideInInspector] public Vector3 velocity;
 
-    public Vector3 flockCenter;
-    public Vector3 flockMovingDirection;
-    public Vector3 flockSeparationDirection;
+    [HideInInspector] public Vector3 flockCenter;
+    [HideInInspector] public Vector3 flockMovingDirection;
+    [HideInInspector] public Vector3 flockSeparationDirection;
     public int numberOfNeighbours = 0;
 
     private Vector3 cohesionSteer;
@@ -29,7 +29,7 @@ public class BoidGPU : MonoBehaviour
     void Start()
     {
         this.position = transform.position;
-        this.velocity = transform.forward.normalized * settings.maxSpeed;
+        this.velocity = transform.forward * settings.maxSpeed;
     }
 
 
@@ -56,8 +56,7 @@ public class BoidGPU : MonoBehaviour
         this.velocity += this.acceleration;
         if (this.velocity.magnitude < settings.maxSpeed * 0.7)
         {
-            this.velocity = this.velocity.normalized;
-            this.velocity *= (settings.maxSpeed * 0.7f);
+            this.velocity = this.velocity.normalized * settings.maxSpeed * 0.7f;
         }
 
         this.transform.position += Vector3.ClampMagnitude(this.velocity, settings.maxSpeed) * Time.deltaTime;

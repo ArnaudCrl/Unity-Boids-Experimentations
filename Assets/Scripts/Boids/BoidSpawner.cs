@@ -5,7 +5,7 @@ using UnityEngine;
 public class BoidSpawner : MonoBehaviour
 {
     public GameObject boidPrefab;
-    public GameObject boidPrey;
+    public GameObject target;
     public GameObject boidsContainer;
     public int number;
     private Transform boundingBox;
@@ -17,7 +17,7 @@ public class BoidSpawner : MonoBehaviour
         Vector3 randomPos = new Vector3(Random.Range(boundingBox.position.x - boundingBox.localScale.x / 2, boundingBox.position.x + boundingBox.localScale.x / 2),
                                                   Random.Range(boundingBox.position.y - boundingBox.localScale.y / 2, boundingBox.position.y + boundingBox.localScale.y / 2),
                                                   Random.Range(boundingBox.position.z - boundingBox.localScale.z / 2, boundingBox.position.z + boundingBox.localScale.z / 2));
-        Instantiate(boidPrey, randomPos, Random.rotation);
+        Instantiate(target, randomPos, Quaternion.identity);
 
         for (int i = 0; i < number; ++i)
         {

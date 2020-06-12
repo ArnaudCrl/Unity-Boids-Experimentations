@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 40
   CohesionRadius: 6
-  SeparationRadius: 3
+  SeparationRadius: 4
   ObstacleAvoidanceRadius: 40
-  despawnRadius: 200
+  despawnRadius: 300
   viewAngle: 120
   cohesionMaxForce: 1
   alignmentMaxForce: 3
   separationMaxForce: 5
   obstacleAvoidancenMaxForce: 20
-  huntMaxForce: 1
+  huntMaxForce: 3

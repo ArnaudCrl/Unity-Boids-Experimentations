@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class PointsOnSphere
 {
-    const int numberOfRays = 300;
+    const int numberOfRays = 150;
     public static readonly Vector3[] directions;
 
 
